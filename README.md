@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/marcobuschini/ng-i18n.svg?branch=master)](https://travis-ci.org/marcobuschini/ng-i18n-cli)
-[![Coverage Status](https://coveralls.io/repos/github/marcobuschini/ng-i18n/badge.svg)](https://coveralls.io/github/marcobuschini/ng-i18n-cli)
-[![Maintainability](https://api.codeclimate.com/v1/badges/74f273f7c89c4f662ae2/maintainability)](https://codeclimate.com/github/marcobuschini/ng-i18n-cli/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/74f273f7c89c4f662ae2/test_coverage)](https://codeclimate.com/github/marcobuschini/ng-i18n-cli/test_coverage)
+[![Build Status](https://travis-ci.org/marcobuschini/ng-i18n-cli.svg?branch=master)](https://travis-ci.org/marcobuschini/ng-i18n-cli)
+[![Coverage Status](https://coveralls.io/repos/github/marcobuschini/ng-i18n-cli/badge.svg)](https://coveralls.io/github/marcobuschini/ng-i18n-cli)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1e7182fa9dbebe0eec71/maintainability)](https://codeclimate.com/github/marcobuschini/ng-i18n-cli/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/1e7182fa9dbebe0eec71/test_coverage)](https://codeclimate.com/github/marcobuschini/ng-i18n-cli/test_coverage)
 [![Documentation](https://img.shields.io/badge/docs-read-brightgreen)](https://marcobuschini.github.io/ng-i18n-cli/index.html)
 [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen)](http://commitizen.github.io/cz-cli/)
 
