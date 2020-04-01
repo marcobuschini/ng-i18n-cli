@@ -1,0 +1,28 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - "10"
+
+cache:
+  directories:
+    - ./node_modules
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=1bdac831160e1782e7489424115af009a1b07a4789ea83b231bd7c1de2e62693
+
+install:
+  - npm install
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - ng test --coverage --coverageReporters=text-lcov | node node_modules/coveralls/bin/coveralls.js
+
+after_script:
+  - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT
