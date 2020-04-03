@@ -12,19 +12,30 @@ const options = program
     'A tool to import/export translation strings from Angular projects translated with ng-i18n'
   )
   .option(
-    '-i, --import <path>',
+    '-e, --export <path>',
     'scans <path> to parse TS, and HTML sources to extract strings to be translated'
   )
   .option(
-    '-e, --export <file>',
+    '-i, --import <file>',
     'generates JS translation files to use in packages from a translated file'
   )
   .option(
     '-o, --output <file>',
     'output file where to write the parsed strings (.json) or the generated ones (.js)'
   )
+  .option(
+    '-l, --locale <iso_code>',
+    'the ISO locale code in <language>_<culture> format. For example en_US for English (United States)'
+  )
   .parse(process.argv)
   .opts()
+
+if (!options.locale) {
+  console.error(
+    'You must specify a locale code (for example en_US for English (United States)'
+  )
+  process.exit()
+}
 
 if (!options.import && !options.export) {
   console.error(
@@ -47,5 +58,5 @@ if (options.export) {
 
 if (options.import) {
   const parser = new Import()
-  parser.import(options.import, options.output)
+  parser.import(options.import, options.output, options.locale)
 }

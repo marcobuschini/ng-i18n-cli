@@ -1,15 +1,12 @@
 import { Export } from './export'
 
 describe('Exporter Tests', () => {
-  it('should create Export instance', () => {
+  it('should create Export instance and print a log message', async () => {
     const e = new Export()
     expect(e).toBeTruthy()
-  })
-
-  it('should print a log message', () => {
-    const logSpy = spyOn(console, 'log').and.callThrough()
-    const e = new Export()
-    e.export('missing.txt', 'output')
-    expect(logSpy).toHaveBeenCalled()
+    await e.export(
+      'test/assets/export/messages.json',
+      'test/assets/export/en_US.js'
+    )
   })
 })
