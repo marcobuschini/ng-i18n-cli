@@ -21,7 +21,7 @@ const options = program
   )
   .option(
     '-o, --output <file>',
-    'output file where to write the parsed strings (.json) or the generated ones (.js)'
+    'output file where to write the parsed strings (.json) or the generated translations (.js)'
   )
   .option(
     '-l, --locale <iso_code>',
@@ -30,9 +30,9 @@ const options = program
   .parse(process.argv)
   .opts()
 
-if (!options.locale) {
+if (!options.locale && options.import) {
   console.error(
-    'You must specify a locale code (for example en_US for English (United States)'
+    'You must specify a locale code. For example use en_US for English (United States)'
   )
   process.exit()
 }
