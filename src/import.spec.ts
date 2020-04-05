@@ -10,4 +10,14 @@ describe('Importer Tests', () => {
       'en_US'
     )
   })
+
+  it('should fail when input path does not exist', async () => {
+    const e = new Import()
+    expect(e).toBeTruthy()
+    await e.import(
+      'src/test/assets/export/doesNotExist',
+      'src/test/assets/import/en_US.js',
+      'en_US'
+    )
+  })
 })
