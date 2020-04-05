@@ -5,8 +5,8 @@ describe('Exporter Tests', () => {
     const e = new Export()
     expect(e).toBeTruthy()
     await e.export(
-      'test/assets/export/messages.json',
-      'test/assets/export/en_US.js'
+      'src/test/assets/export',
+      'src/test/assets/export/en_US.json'
     )
   })
 })

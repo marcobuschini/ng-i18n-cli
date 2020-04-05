@@ -21,5 +21,5 @@ This is a list of packages to evaluate for usage in this product:
 
 They should fail I can use the regular expressions in this list:
 
-1.  Read HTML: /'([A-Z0-9_]_)'\s_|\s*(translate\s*\(.\*\)|translate)/g
+1.  Read HTML: /'([A-Z0-9_]+)'\s*\|\s*(translate\s*(.*)|translate)/g
 2.  Read TypeScript: /translate\(\s*'([A-Z0-9_]*)'\s*,(\s*\{._\})\s _\)|translate\(\s*'([A-Z0-9_]*)'\s\*\)/g

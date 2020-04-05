@@ -1,51 +1,65 @@
-import { exec } from 'child_process'
 import * as path from 'path'
 import * as fs from 'fs'
 
 export class Export {
   public async export(inputPath: string, outputFile: string) {
     console.log('Loading messages from source files in ' + inputPath)
-    this.fromDirTS(inputPath)
+    const ts = this.fromDirTS(inputPath)
     console.log('Loading messages from html files in ' + inputPath)
-    this.fromDirHTML(inputPath)
+    const html = this.fromDirHTML(inputPath)
+
+    const uniq = ts
+      .concat(html)
+      .sort()
+      .filter((v, i, a) => a.indexOf(v) === i)
+    let ret = ''
+    uniq.forEach(e => (ret = ret.concat('  "' + e + '": "' + e + '",\n')))
+    ret = '{\n' + ret.substr(0, ret.length - 2) + '\n}'
+    fs.writeFileSync(outputFile, ret)
   }
 
-  private fromDirTS(inputPath: string, filter: string = '.ts') {
+  private fromDirTS(inputPath: string, filter: string = '.ts'): string[] {
     if (!fs.existsSync(inputPath)) {
       console.log('no dir ', inputPath)
-      return
+      return []
     }
+
+    let unsorted = new Array<string>()
 
     const files = fs.readdirSync(inputPath)
     files.forEach((file: string) => {
       const filename = path.join(inputPath, file)
       const stat = fs.lstatSync(filename)
       if (stat.isDirectory()) {
-        this.fromDirTS(filename, filter)
+        unsorted = unsorted.concat(this.fromDirTS(filename, filter))
       } else if (filename.indexOf(filter) >= 0) {
         console.log('-- found: ', filename)
-        this.parseTS(filename)
+        unsorted = unsorted.concat(this.parseTS(filename))
       }
     })
+    return unsorted
   }
 
-  private fromDirHTML(inputPath: string, filter: string = '.html') {
+  private fromDirHTML(inputPath: string, filter: string = '.html'): string[] {
     if (!fs.existsSync(inputPath)) {
       console.log('no dir ', inputPath)
-      return
+      return []
     }
+
+    let unsorted = new Array<string>()
 
     const files = fs.readdirSync(inputPath)
     files.forEach((file: string) => {
       const filename = path.join(inputPath, file)
       const stat = fs.lstatSync(filename)
       if (stat.isDirectory()) {
-        this.fromDirHTML(filename, filter)
+        unsorted = unsorted.concat(this.fromDirHTML(filename, filter))
       } else if (filename.indexOf(filter) >= 0) {
         console.log('-- found: ', filename)
-        this.parseHTML(filename)
+        unsorted = unsorted.concat(this.parseHTML(filename))
       }
     })
+    return unsorted
   }
 
   private parseTS(filename: string): string[] {
@@ -54,7 +68,7 @@ export class Export {
     return ret
   }
 
-  private parseHTML(filename: string) {
+  private parseHTML(filename: string): string[] {
     const ret = new Array<string>()
     const buffer = fs.readFileSync(filename, 'utf8')
     const regex = /'([A-Z0-9_]+)'\s*\|\s*(translate\s*(.*)|translate)/g
@@ -69,9 +83,11 @@ export class Export {
       m.forEach((match, groupIndex) => {
         if (groupIndex === 1) {
           console.log(`Found match: ${match}`)
+          ret.push(match)
         }
       })
       m = regex.exec(buffer)
     }
+    return ret
   }
 }

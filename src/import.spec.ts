@@ -5,8 +5,8 @@ describe('Importer Tests', () => {
     const i = new Import()
     expect(i).toBeTruthy()
     await i.import(
-      'test/assets/import/messages.json',
-      'test/assets/import/en_US.js',
+      'src/test/assets/import/messages.json',
+      'src/test/assets/import/en_US.js',
       'en_US'
     )
   })
