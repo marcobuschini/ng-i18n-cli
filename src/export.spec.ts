@@ -9,4 +9,13 @@ describe('Exporter Tests', () => {
       'src/test/assets/export/en_US.json'
     )
   })
+
+  it('should fail when input path does not exist', async () => {
+    const e = new Export()
+    expect(e).toBeTruthy()
+    await e.export(
+      'src/test/assets/export/doesNotExist',
+      'src/test/assets/export/en_US.json'
+    )
+  })
 })
