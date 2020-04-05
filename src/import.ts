@@ -1,24 +1,20 @@
 import commander from 'commander'
-import { exec } from 'child_process'
+import { execSync } from 'child_process'
 
 export class Import {
-  public async import(file: string, output: string, culture: string) {
-    await console.info('Loading translated strings from ' + file)
-    const command =
-      'npx messageformat ' + file + ' -o ' + output + ' -n ' + culture
-    const child = await exec(command)
+  public import(file: string, output: string, culture: string): number {
+    console.info('Loading translated strings from ' + file)
 
-    child.stdout?.pipe(process.stdout)
-    child.stderr?.pipe(process.stderr)
-
-    child.on('close', async () => {
-      await console.log(`Translation exported to ${output}`)
-      process.exit()
-    })
-
-    child.on('error', async error => {
-      await console.error(error)
-      process.exit(1)
-    })
+    try {
+      const command =
+        'npx messageformat ' + file + ' -o ' + output + ' -n ' + culture
+      const buffer = execSync(command)
+      process.stdout.write(buffer)
+      console.log(`Translation exported to ${output}`)
+      return 0
+    } catch (error) {
+      console.error(error.message)
+      return 1
+    }
   }
 }
