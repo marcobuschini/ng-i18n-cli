@@ -1,4 +1,6 @@
 {
   "TEST_TRANSLATION_PARAMS": "There are two parameters: {KEY_1} and {KEY_2}",
-  "TEST_TRANSLATION": "There are no parameters"
+  "TEST_TRANSLATION": "There are no parameters",
+  "TEST_TRANSLATION_LINK": "There are no parameters",
+  "TEST_TRANSLATION_LINK_ALT": "There are no parameters"
 }
