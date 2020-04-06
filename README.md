@@ -12,14 +12,13 @@
 This is a first try to implement a replacement tool for the [NGX Translate](http://www.ngx-translate.com)
 library that is now split into to many components, and has now enough shortcomings.
 
-## Packages
+## RegEx
 
-This is a list of packages to evaluate for usage in this product:
+These are the the regular expressions used to extract string keys for translation:
 
-1.  Read HTML: https://www.npmjs.com/package/node-html-parser
-2.  Read TypeScript: https://www.npmjs.com/package/typescript-parser
+1.  From HTML: /'([A-Z0-9_]+)'\s*\|\s*(translate\s*(.*)|translate)/g
+2.  From TypeScript: /translate\s*\(\s*['"]([A-Z0-9_]*)['"]\s*(\s*.\*)\)/g
 
-They should fail I can use the regular expressions in this list:
+## Releases
 
-1.  Read HTML: /'([A-Z0-9_]+)'\s*\|\s*(translate\s*(.*)|translate)/g
-2.  Read TypeScript: /translate\(\s*'([A-Z0-9_]*)'\s*,(\s*\{._\})\s _\)|translate\(\s*'([A-Z0-9_]*)'\s\*\)/g
+https://github.com/semantic-release/semantic-release

@@ -15,7 +15,7 @@ describe('Exporter Tests', () => {
     expect(e).toBeTruthy()
     await e.export(
       'src/test/assets/export/doesNotExist',
-      'src/test/assets/export/en_US.json'
+      'src/test/assets/export/doesNotExist.json'
     )
   })
 })

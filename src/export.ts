@@ -64,7 +64,24 @@ export class Export {
 
   private parseTS(filename: string): string[] {
     const ret = new Array<string>()
+    const buffer = fs.readFileSync(filename, 'utf8')
+    const regex = /translate\s*\(\s*['"]([A-Z0-9_]*)['"]\s*(\s*.*)\)/g
+    let m = regex.exec(buffer)
+    while (m !== null) {
+      // This is necessary to avoid infinite loops with zero-width matches
+      if (m.index === regex.lastIndex) {
+        regex.lastIndex++
+      }
 
+      // The result can be accessed through the `m`-variable.
+      m.forEach((match, groupIndex) => {
+        if (groupIndex === 1) {
+          console.log(`Found match: ${match}`)
+          ret.push(match)
+        }
+      })
+      m = regex.exec(buffer)
+    }
     return ret
   }
 
