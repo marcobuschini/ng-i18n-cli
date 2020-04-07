@@ -3,9 +3,9 @@ import * as fs from 'fs'
 
 export class Export {
   public async export(inputPath: string, outputFile: string) {
-    console.log('Loading messages from source files in ' + inputPath)
+    console.log(`Loading messages from source files in ${inputPath}`)
     const ts = this.fromDirTS(inputPath)
-    console.log('Loading messages from html files in ' + inputPath)
+    console.log(`Loading messages from html files in ${inputPath}`)
     const html = this.fromDirHTML(inputPath)
 
     const uniq = ts
@@ -13,14 +13,14 @@ export class Export {
       .sort()
       .filter((v, i, a) => a.indexOf(v) === i)
     let ret = ''
-    uniq.forEach(e => (ret = ret.concat('  "' + e + '": "' + e + '",\n')))
-    ret = '{\n' + ret.substr(0, ret.length - 2) + '\n}'
+    uniq.forEach(e => (ret = ret.concat(`  "${e}": "${e}",\n`)))
+    ret = `{\n${ret.substr(0, ret.length - 2)}\n}`
     fs.writeFileSync(outputFile, ret)
   }
 
   private fromDirTS(inputPath: string, filter: string = '.ts'): string[] {
     if (!fs.existsSync(inputPath)) {
-      console.log('no dir ', inputPath)
+      console.log(`Path not found ${inputPath}`)
       return []
     }
 
@@ -33,7 +33,7 @@ export class Export {
       if (stat.isDirectory()) {
         unsorted = unsorted.concat(this.fromDirTS(filename, filter))
       } else if (filename.indexOf(filter) >= 0) {
-        console.log('-- found: ', filename)
+        console.log(`-- found: ${filename}`)
         unsorted = unsorted.concat(this.parseTS(filename))
       }
     })
@@ -42,7 +42,7 @@ export class Export {
 
   private fromDirHTML(inputPath: string, filter: string = '.html'): string[] {
     if (!fs.existsSync(inputPath)) {
-      console.log('no dir ', inputPath)
+      console.log(`Path not found ${inputPath}`)
       return []
     }
 
@@ -55,7 +55,7 @@ export class Export {
       if (stat.isDirectory()) {
         unsorted = unsorted.concat(this.fromDirHTML(filename, filter))
       } else if (filename.indexOf(filter) >= 0) {
-        console.log('-- found: ', filename)
+        console.log(`-- found: ${filename}`)
         unsorted = unsorted.concat(this.parseHTML(filename))
       }
     })
