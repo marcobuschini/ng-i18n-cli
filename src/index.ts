@@ -44,6 +44,11 @@ if (!options.import && !options.export) {
   process.exit()
 }
 
+if (!options.output) {
+  console.error('You must specify the output file.')
+  process.exit()
+}
+
 if (options.import && options.export) {
   console.error(
     'You can only import source files, or export output files, but not both at the same time.'
