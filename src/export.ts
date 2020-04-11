@@ -42,13 +42,11 @@ export class Export {
   private parse(filename: string): string[] {
     const ret = new Array<string>()
     const buffer = fs.readFileSync(filename, 'utf8')
-    const regexTS = /translate\s*\(\s*['"]([A-Z0-9_]*)['"]\s*(\s*.*)\)/g
-    const regexHTML = /'([A-Z0-9_]+)'\s*\|\s*(translate\s*(.*)|translate)/g
     let regex: RegExp
     if (filename.endsWith('.ts')) {
-      regex = regexTS
+      regex = /translate\s*\(\s*['"]([A-Z0-9_]*)['"]\s*(\s*.*)\)/g
     } else if (filename.endsWith('.html')) {
-      regex = regexHTML
+      regex = /'([A-Z0-9_]+)'\s*\|\s*(translate\s*(.*)|translate)/g
     } else {
       return []
     }
@@ -60,12 +58,11 @@ export class Export {
       }
 
       // The result can be accessed through the `m`-variable.
-      m.forEach((match, groupIndex) => {
-        if (groupIndex === 1) {
-          console.log(`Found match: ${match}`)
-          ret.push(match)
-        }
-      })
+      if (m.length >= 1) {
+        const match = m[1]
+        console.log(`Found match: ${match}`)
+        ret.push(match)
+      }
       m = regex.exec(buffer)
     }
     return ret
